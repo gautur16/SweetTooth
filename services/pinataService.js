@@ -51,10 +51,29 @@ const pinataService = () => {
     Pinata.push(val);
     return val;
   };
+
+  const hitPinataById = (pinataId) => {
+    var currHits = Pinata.filter(p => p.id == pinataId)[0].currentHits;
+    var maxHits = Pinata.filter(p => p.id == pinataId)[0].maximumHits;
+    console.log("maxHits " + maxHits);
+    console.log("currHits " + currHits);
+    if(currHits === maxHits) {
+      return -1;
+    }
+    Pinata.filter(p => p.id == pinataId)[0].currentHits++;
+    currHits = Pinata.filter(p => p.id == pinataId)[0].currentHits;
+    if(currHits === maxHits) {
+      return 1;
+    }
+    else {
+      return 0;
+    }
+  };
   return {
     getAllPinatas,
     getPinataById,
-    createPinata
+    createPinata,
+    hitPinataById
   };
 
 };

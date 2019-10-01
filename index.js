@@ -47,7 +47,22 @@ app.post('/api/pinatas', (req, res) => {
 
 
 app.put('/api/pinatas/:pinataId/hit', (req, res) => {
-  //return pinataService.
+  const resStatus = pinataService.hitPinataById(req.params.pinataId);
+  //Hit limit reached
+  if(resStatus === -1) {
+    return res.status(423).send();
+  }
+  //Hit success
+  else if(resStatus === 0) {
+    return res.status(204).send();
+  }
+  //Final blow
+  else if(resStatus === 1) {
+    return res.status(200).send();
+  }
+  else {
+    return res.json(resStatus);
+  }
 });
 
 // ??? api/pinata/:id/hit - hits pinata with with :id (until hit limit has been reached)
