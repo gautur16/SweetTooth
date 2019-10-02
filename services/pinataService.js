@@ -1,4 +1,5 @@
 const Pinata = require('../data/data').pinatas;
+const fs = require('fs');
 
 var i;
 for(i = 0; i < Pinata.length; i++){
@@ -46,7 +47,9 @@ const pinataService = () => {
     var val = new Object();
     val.id = nextId;
     val.name = pinata.name;
-    val.surprise = pinata.surprise;
+    //Vantar if/else hér fyrir URL eða text
+    fs.appendFileSync('../surprise.txt', val.surprise = pinata.surprise + "\n");
+    // val.surprise = pinata.surprise;
     val.maximumHits = pinata.maximumHits;
     Pinata.push(val);
     return val;
@@ -55,8 +58,6 @@ const pinataService = () => {
   const hitPinataById = (pinataId) => {
     var currHits = Pinata.filter(p => p.id == pinataId)[0].currentHits;
     var maxHits = Pinata.filter(p => p.id == pinataId)[0].maximumHits;
-    console.log("maxHits " + maxHits);
-    console.log("currHits " + currHits);
     if(currHits === maxHits) {
       return -1;
     }

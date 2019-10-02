@@ -58,6 +58,7 @@ app.put('/api/pinatas/:pinataId/hit', (req, res) => {
   }
   //Final blow
   else if(resStatus === 1) {
+    //Nota send til að skila texta út file
     return res.status(200).send();
   }
   else {
